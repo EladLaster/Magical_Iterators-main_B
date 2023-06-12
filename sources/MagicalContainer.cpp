@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include "MagicalContainer.hpp"
 
 using namespace std;
@@ -34,6 +35,10 @@ void MagicalContainer::removeElement(int element) {
         auto it = find(elements.begin(), elements.end(), element);
         if (it != elements.end()) {
             elements.erase(it);
+            this->point_to_elements_prime.clear();
+            for(int i=0;i<this->elements.size();++i)
+                if(isPrime(this->elements[(vector<int>::size_type)i]))
+                    this->point_to_elements_prime.push_back(&this->elements[(vector<int>::size_type)i]);
         }
         else
             throw runtime_error("Can't remove element that not exist");
